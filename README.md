@@ -1,39 +1,28 @@
----
-
 # Gerçek Zamanlı Hava Durumu Veri İşleme Sistemi
 
 ## Türkçe Açıklama
 
 ### Genel Bakış
-Bu proje, WebSocket kullanarak hava durumu verilerini gerçek zamanlı olarak yakalayan, verileri gRPC servisi üzerinden işleyip kaydeden, MongoDB'de saklayan ve aynı zamanda bir RabbitMQ kuyruğuna gönderen bir gerçek zamanlı hava durumu veri işleme sistemidir. WebSocket, gRPC, MongoDB ve RabbitMQ gibi farklı teknolojilerin tek bir uygulamada nasıl entegre edilebileceğini gösterir ve eğitim amaçlarına uygun olduğu gibi daha büyük ölçekli uygulamalar için bir prototip olarak da kullanılabilir.
+Bu proje geliştirme aşamasındadır. WebSocket kullanarak hava durumu verilerini gerçek zamanlı olarak yakalamayı, verileri gRPC servisi aracılığıyla işleyip MongoDB'de saklamayı ve daha sonraki işlemler için RabbitMQ kuyruğuna iletmeyi amaçlamaktadır. WebSocket, gRPC, MongoDB ve RabbitMQ'nun entegrasyonu, ölçeklenebilir ve verimli veri işleme sistemleri kurma konusunda kapsamlı bir yaklaşım sergiler.
 
-### Kullanılan Teknolojiler
-- **WebSocket**: Gerçek zamanlı veri alma.
-- **gRPC**: Verimli sunucu-istemci iletişimi.
-- **MongoDB**: Veri depolama.
-- **RabbitMQ**: Mesaj kuyruklama.
+### Proje Hedefleri
+- **Gerçek Zamanlı Veri Edinimi**: Canlı hava durumu verilerini sürekli olarak yakalamak için WebSocket kullanımı.
+- **Etkili Veri İşleme ve Depolama**: Veri iletimi için gRPC, veri depolama için MongoDB kullanımı.
+- **Mesaj Kuyruklama**: Veri akışını yönetmek ve ölçeklenebilir sistem mimarisi sağlamak için RabbitMQ entegrasyonu.
 
-### Nasıl Çalıştırılır
-1. Repoyu klonlayın:
-   ```
-   git clone <repository-url>
-   ```
-2. Gerekli bağımlılıkları yükleyin:
-   ```
-   // Gerekli kütüphane ve araçların kurulum komutları eklenecek
-   ```
-3. MongoDB ve RabbitMQ servislerini başlatın.
-4. Sunucuyu çalıştırın:
-   ```
-   go run server.go
-   ```
-5. İstemciyi çalıştırın:
-   ```
-   go run client.go
-   ```
+### Gelecekteki Uygulamalar
+Tamamlandığında, bu sistem birçok amaç için hizmet verecek:
+- Kullanıcılara ve sistemlere gerçek zamanlı hava durumu güncellemeleri sağlama.
+- Hava durumu analizi ve tahmin uygulamaları için arka uç servisi olarak hizmet verme.
+- Diğer alanlara uyarlanabilecek gerçek zamanlı veri işleme için ölçeklenebilir bir mimari gösterimi.
 
-### Katkıda Bulunma
-Katkılarınız bekleniyor! Lütfen repoyu forklayın ve iyileştirmelerinizi içeren bir pull request gönderin.
+### Nasıl Katkıda Bulunabilirsiniz
+Bu projeye katkıda bulunmak için:
+1. Repoyu forklayın.
+2. Özellik dalınızı oluşturun (`git checkout -b feature/HarikaOzellik`).
+3. Değişikliklerinizi kaydedin (`git commit -m 'HarikaOzellik ekle'`).
+4. Dalınıza push yapın (`git push origin feature/HarikaOzellik`).
+5. Pull request açın.
 
 ---
 
@@ -42,34 +31,25 @@ Katkılarınız bekleniyor! Lütfen repoyu forklayın ve iyileştirmelerinizi i�
 ## English Description
 
 ### Overview
-This project is a real-time weather data processing system that captures weather conditions using WebSocket, processes and saves the data via a gRPC service, stores it in MongoDB, and also pushes it to a RabbitMQ queue. It demonstrates the integration of different technologies such as WebSocket, gRPC, MongoDB, and RabbitMQ in a single application, suitable for educational purposes and as a prototype for larger scale implementations.
+This project is currently under development. It aims to establish a real-time weather data processing system that captures weather conditions using WebSocket, processes and stores the data via a gRPC service in MongoDB, and forwards it to a RabbitMQ queue for further processing. The integration of WebSocket, gRPC, MongoDB, and RabbitMQ demonstrates a comprehensive approach to building scalable and efficient data processing systems.
 
-### Technologies Used
-- **WebSocket**: For real-time data fetching.
-- **gRPC**: For efficient server-client communication.
-- **MongoDB**: For data storage.
-- **RabbitMQ**: For message queuing.
+### Project Goals
+- **Real-Time Data Acquisition**: Implement WebSocket to capture live weather data continuously.
+- **Efficient Data Processing and Storage**: Use gRPC for data transmission between client and server, and MongoDB for storing the data effectively.
+- **Message Queuing**: Integrate RabbitMQ to manage data flow and enable scalable system architecture.
 
-### How to Run
-1. Clone the repository:
-   ```
-   git clone <repository-url>
-   ```
-2. Install dependencies:
-   ```
-   // Commands will add to install necessary libraries and tools
-   ```
-3. Start the MongoDB and RabbitMQ services.
-4. Run the server:
-   ```
-   go run server.go
-   ```
-5. Run the client:
-   ```
-   go run client.go
-   ```
+### Future Applications
+Once completed, this system will serve multiple purposes:
+- Providing real-time weather updates to users and systems.
+- Serving as a backend service for weather data analysis and forecasting applications.
+- Demonstrating a scalable architecture for real-time data processing which can be adapted to other domains.
 
-### Contributions
-Contributions are welcome! Please fork the repository and submit a pull request with your enhancements.
+### How to Contribute
+This project is open for contributions:
+1. Fork the repository.
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`).
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`).
+4. Push to the branch (`git push origin feature/AmazingFeature`).
+5. Open a pull request.
 
 ---
