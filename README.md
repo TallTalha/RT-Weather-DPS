@@ -20,7 +20,7 @@ Bu proje, WebSocket kullanarak hava durumu verilerini gerçek zamanlı olarak ya
    ```
 2. Gerekli bağımlılıkları yükleyin:
    ```
-   // Gerekli kütüphane ve araçların kurulum komutlarını ekleyin
+   // Gerekli kütüphane ve araçların kurulum komutları eklenecek
    ```
 3. MongoDB ve RabbitMQ servislerini başlatın.
 4. Sunucuyu çalıştırın:
@@ -57,7 +57,7 @@ This project is a real-time weather data processing system that captures weather
    ```
 2. Install dependencies:
    ```
-   // Add commands to install necessary libraries and tools
+   // Commands will add to install necessary libraries and tools
    ```
 3. Start the MongoDB and RabbitMQ services.
 4. Run the server:
