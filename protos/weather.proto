@@ -1,0 +1,42 @@
+// gRPC için protobuf tanımlamaları - Protobuf definitions for gRPC
+
+syntax = "proto3";
+
+package weather;
+
+option go_package = "api/";
+
+// The weather data service definition.
+service WeatherService {
+  // Sends a weather query and the Stream tag indicates that a continuous query will be made.
+  rpc QueryWeather (WeatherRequest) returns (stream WeatherResponse) {}  
+
+  // Lists all the cities available in the weather data service.
+  rpc ListCities(ListCitiesRequest) returns (ListCitiesResponse) {}
+}
+
+// The request message containing the weather data.
+message WeatherRequest {
+  string city = 1;  // Index 1 is determined as the identity of city.
+}
+
+// The response message containing the result.
+message WeatherResponse {
+  bool success = 1;       // Index 1 is determined as the identity of the response.
+  double temperature = 2; // Index 2 is determined as the temperature of the city.
+  double humidity = 3;    // Index 3 is determined as the humidity of the city.
+}
+
+// This request does not need any parameters.
+message ListCitiesRequest {}
+
+// The response message containing a list of cities.
+message ListCitiesResponse {
+  repeated CityEntry items = 1;  // A list of city entries.
+}
+
+// A single city entry.
+message CityEntry {
+  string city_code = 1;  // The code identifier for a city.
+  string city_name = 2;  // The name of the city.
+}
