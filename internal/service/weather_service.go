@@ -1,10 +1,10 @@
 package service
 
 import (
-	"C:\Users\talha\OneDrive\Belgeler\Go_Projects\weather-system\dto"
-	"weather-system/model"
-	"weather-system/pkg/mongo"
-	"weather-system/pkg/rabbitmq"
+	"github.com/TallTalha/weather-system/dto"
+	"github.com/TallTalha/weather-system/model"
+	"github.com/TallTalha/weather-system/pkg/mongo"
+	"github.com/TallTalha/weather-system/pkg/rabbitmq"
 )
 
 // WeatherService hava durumu ile ilgili işlemleri tanımlar
@@ -26,7 +26,6 @@ func (ws *WeatherService) ProcessWeatherData(data dto.WeatherData) {
 	// DTO'dan model verisine dönüştürme
 	weatherModel := model.WeatherData{
 		Temperature: data.Temperature,
-		Humidity:    data.Humidity,
 		City:        data.City,
 		// Timestamp dönüşümü gerekirse burada yapılabilir
 	}
