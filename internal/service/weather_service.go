@@ -7,13 +7,11 @@ import (
 	"github.com/TallTalha/weather-system/pkg/rabbitmq"
 )
 
-// WeatherService hava durumu ile ilgili işlemleri tanımlar
 type WeatherService struct {
 	MongoClient    *mongo.MongoClient
 	RabbitMQClient *rabbitmq.RabbitMQClient
 }
 
-// NewWeatherService yeni bir WeatherService örneği oluşturur
 func NewWeatherService(mongoClient *mongo.MongoClient, rabbitMQClient *rabbitmq.RabbitMQClient) *WeatherService {
 	return &WeatherService{
 		MongoClient:    mongoClient,

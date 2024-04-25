@@ -8,31 +8,31 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-// MongoClient global değişken olarak MongoDB client'ını saklar
-var MongoClient *mongo.Client
+// MongoClient yapısı MongoDB bağlantısını ve ilgili işlemleri yönetir
+type MongoClient struct {
+	Client *mongo.Client
+}
 
-// Connect fonksiyonu MongoDB'ye bağlanmayı sağlar
-func Connect(uri string) {
+// NewMongoClient, yeni bir MongoClient örneği oluşturur ve döndürür
+func NewMongoClient(uri string) *MongoClient {
 	clientOptions := options.Client().ApplyURI(uri)
 	client, err := mongo.Connect(context.TODO(), clientOptions)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("Failed to connect to MongoDB:", err)
 	}
-
 	// Bağlantıyı kontrol et
-	err = client.Ping(context.TODO(), nil)
-	if err != nil {
-		log.Fatal(err)
+	if err := client.Ping(context.TODO(), nil); err != nil {
+		log.Fatal("Failed to connect to MongoDB:", err)
 	}
 
-	MongoClient = client
-	log.Println("Connected to MongoDB!")
+	return &MongoClient{
+		Client: client,
+	}
 }
 
-// Disconnect fonksiyonu MongoDB bağlantısını keser
-func Disconnect() {
-	if err := MongoClient.Disconnect(context.TODO()); err != nil {
-		log.Fatal(err)
+// Disconnect, MongoDB bağlantısını keser
+func (mc *MongoClient) Disconnect() {
+	if err := mc.Client.Disconnect(context.TODO()); err != nil {
+		log.Fatal("Failed to disconnect MongoDB:", err)
 	}
-	log.Println("Disconnected from MongoDB.")
 }
