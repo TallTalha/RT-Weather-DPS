@@ -1,6 +1,8 @@
 package service
 
 import (
+	"log"
+
 	"github.com/TallTalha/weather-system/dto"
 	"github.com/TallTalha/weather-system/model"
 	"github.com/TallTalha/weather-system/pkg/mongo"
@@ -19,17 +21,19 @@ func NewWeatherService(mongoClient *mongo.MongoClient, rabbitMQClient *rabbitmq.
 	}
 }
 
-// ProcessWeatherData hava durumu verilerini işler ve gerektiğinde başka sistemlere gönderir
 func (ws *WeatherService) ProcessWeatherData(data dto.WeatherData) {
 	// DTO'dan model verisine dönüştürme
 	weatherModel := model.WeatherData{
 		Temperature: data.Temperature,
 		City:        data.City,
-		// Timestamp dönüşümü gerekirse burada yapılabilir
+		// Timestamp dönüşümü burada yapılabilir
 	}
 
 	// MongoDB'ye veri kaydet
-	ws.MongoClient.InsertWeatherData(weatherModel)
+	// Repository kullanarak veri kaydet
+	if err := ws.WeatherRepo.InsertWeatherData(data); err != nil {
+		log.Printf("Error inserting weather data: %v", err)
+	}
 
 	// RabbitMQ üzerinden mesaj gönder
 	message := []byte("New weather data processed for " + data.City)
