@@ -1,0 +1,11 @@
+server:
+  port: 8080
+
+mongodb:
+  uri: "mongodb://localhost:27017/mydatabase"
+
+rabbitmq:
+  url: "amqp://guest:guest@localhost:5672/"
+
+grpc:
+  port: 50051
