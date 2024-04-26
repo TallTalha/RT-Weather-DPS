@@ -4,19 +4,19 @@ import (
 	"log"
 
 	"github.com/TallTalha/weather-system/dto"
+	"github.com/TallTalha/weather-system/internal/repository"
 	"github.com/TallTalha/weather-system/model"
-	"github.com/TallTalha/weather-system/pkg/mongo"
 	"github.com/TallTalha/weather-system/pkg/rabbitmq"
 )
 
 type WeatherService struct {
-	MongoClient    *mongo.MongoClient
+	WeatherRepo    *repository.WeatherRepository
 	RabbitMQClient *rabbitmq.RabbitMQClient
 }
 
-func NewWeatherService(mongoClient *mongo.MongoClient, rabbitMQClient *rabbitmq.RabbitMQClient) *WeatherService {
+func NewWeatherService(weatherRepo *repository.WeatherRepository, rabbitMQClient *rabbitmq.RabbitMQClient) *WeatherService {
 	return &WeatherService{
-		MongoClient:    mongoClient,
+		WeatherRepo:    weatherRepo,
 		RabbitMQClient: rabbitMQClient,
 	}
 }
@@ -29,9 +29,8 @@ func (ws *WeatherService) ProcessWeatherData(data dto.WeatherData) {
 		// Timestamp dönüşümü burada yapılabilir
 	}
 
-	// MongoDB'ye veri kaydet
-	// Repository kullanarak veri kaydet
-	if err := ws.WeatherRepo.InsertWeatherData(data); err != nil {
+	// MongoDB'ye veri kaydetmek için WeatherRepository kullan
+	if err := ws.WeatherRepo.InsertWeatherData(weatherModel); err != nil {
 		log.Printf("Error inserting weather data: %v", err)
 	}
 

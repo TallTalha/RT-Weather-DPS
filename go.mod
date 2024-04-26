@@ -4,6 +4,7 @@ go 1.22.2
 
 require (
 	github.com/gorilla/websocket v1.5.1
+	github.com/spf13/viper v1.18.2
 	github.com/streadway/amqp v1.1.0
 	go.mongodb.org/mongo-driver v1.15.0
 	google.golang.org/grpc v1.63.2
@@ -25,7 +26,6 @@ require (
 	github.com/spf13/afero v1.11.0 // indirect
 	github.com/spf13/cast v1.6.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
-	github.com/spf13/viper v1.18.2 // indirect
 	github.com/subosito/gotenv v1.6.0 // indirect
 	github.com/xdg-go/pbkdf2 v1.0.0 // indirect
 	github.com/xdg-go/scram v1.1.2 // indirect

@@ -2,16 +2,8 @@ syntax = "proto3";
 
 package weather;
 
-// Go dilinde paket yolu ve modül adı.
+
 option go_package = "/pb";
-
-
-// WeatherData mesajı, hava durumu verilerini taşımak için kullanılır.
-message WeatherData {
-    string city = 1;
-    double temperature = 2;
-    string timestamp = 3;
-}
 
 // WeatherService servisi, hava durumu verileri ile ilgili işlemleri tanımlar.
 service WeatherService {
@@ -20,9 +12,22 @@ service WeatherService {
 
     // StreamWeatherData RPC'si, sürekli hava durumu verisi akışı sağlar.
     rpc StreamWeatherData(WeatherRequest) returns (stream WeatherData);
+
+    rpc SendWeatherData(WeatherData) returns (WeatherResponse);
+}
+
+// WeatherData mesajı, hava durumu verilerini taşımak için kullanılır.
+message WeatherData {
+    string city = 1;
+    double temperature = 2;
+    string timestamp = 3;
 }
 
 // WeatherRequest mesajı, hava durumu verileri talep etmek için kullanılır.
 message WeatherRequest {
     string city = 1;
+}
+
+message WeatherResponse {
+    string message = 1;
 }

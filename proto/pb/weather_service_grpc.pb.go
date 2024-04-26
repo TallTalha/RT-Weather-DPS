@@ -21,6 +21,7 @@ const _ = grpc.SupportPackageIsVersion7
 const (
 	WeatherService_GetWeatherData_FullMethodName    = "/weather.WeatherService/GetWeatherData"
 	WeatherService_StreamWeatherData_FullMethodName = "/weather.WeatherService/StreamWeatherData"
+	WeatherService_SendWeatherData_FullMethodName   = "/weather.WeatherService/SendWeatherData"
 )
 
 // WeatherServiceClient is the client API for WeatherService service.
@@ -31,6 +32,7 @@ type WeatherServiceClient interface {
 	GetWeatherData(ctx context.Context, in *WeatherRequest, opts ...grpc.CallOption) (*WeatherData, error)
 	// StreamWeatherData RPC'si, sürekli hava durumu verisi akışı sağlar.
 	StreamWeatherData(ctx context.Context, in *WeatherRequest, opts ...grpc.CallOption) (WeatherService_StreamWeatherDataClient, error)
+	SendWeatherData(ctx context.Context, in *WeatherData, opts ...grpc.CallOption) (*WeatherResponse, error)
 }
 
 type weatherServiceClient struct {
@@ -82,6 +84,15 @@ func (x *weatherServiceStreamWeatherDataClient) Recv() (*WeatherData, error) {
 	return m, nil
 }
 
+func (c *weatherServiceClient) SendWeatherData(ctx context.Context, in *WeatherData, opts ...grpc.CallOption) (*WeatherResponse, error) {
+	out := new(WeatherResponse)
+	err := c.cc.Invoke(ctx, WeatherService_SendWeatherData_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // WeatherServiceServer is the server API for WeatherService service.
 // All implementations must embed UnimplementedWeatherServiceServer
 // for forward compatibility
@@ -90,6 +101,7 @@ type WeatherServiceServer interface {
 	GetWeatherData(context.Context, *WeatherRequest) (*WeatherData, error)
 	// StreamWeatherData RPC'si, sürekli hava durumu verisi akışı sağlar.
 	StreamWeatherData(*WeatherRequest, WeatherService_StreamWeatherDataServer) error
+	SendWeatherData(context.Context, *WeatherData) (*WeatherResponse, error)
 	mustEmbedUnimplementedWeatherServiceServer()
 }
 
@@ -102,6 +114,9 @@ func (UnimplementedWeatherServiceServer) GetWeatherData(context.Context, *Weathe
 }
 func (UnimplementedWeatherServiceServer) StreamWeatherData(*WeatherRequest, WeatherService_StreamWeatherDataServer) error {
 	return status.Errorf(codes.Unimplemented, "method StreamWeatherData not implemented")
+}
+func (UnimplementedWeatherServiceServer) SendWeatherData(context.Context, *WeatherData) (*WeatherResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SendWeatherData not implemented")
 }
 func (UnimplementedWeatherServiceServer) mustEmbedUnimplementedWeatherServiceServer() {}
 
@@ -155,6 +170,24 @@ func (x *weatherServiceStreamWeatherDataServer) Send(m *WeatherData) error {
 	return x.ServerStream.SendMsg(m)
 }
 
+func _WeatherService_SendWeatherData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(WeatherData)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WeatherServiceServer).SendWeatherData(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WeatherService_SendWeatherData_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WeatherServiceServer).SendWeatherData(ctx, req.(*WeatherData))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // WeatherService_ServiceDesc is the grpc.ServiceDesc for WeatherService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -165,6 +198,10 @@ var WeatherService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetWeatherData",
 			Handler:    _WeatherService_GetWeatherData_Handler,
+		},
+		{
+			MethodName: "SendWeatherData",
+			Handler:    _WeatherService_SendWeatherData_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{
